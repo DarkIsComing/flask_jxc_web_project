@@ -1,0 +1,129 @@
+{% extends "base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+			
+{% block page_content %}	
+<script src="../static/js/change_sum.js"></script>
+<div class="container">
+	
+	<h2>生产表单页</h2>
+	<br>                          
+	<table class="table table-hover" id="mytable">
+		<thead>
+			<tr>
+				<th>元件</th>
+				<th>封装名称</th>
+				<th>数量</th>
+				<th>总量</th>
+				<th>库存数量</th>
+				
+				<th>差值</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{%if states%}
+				{%for yj,fz,v,s,stock,difference,state in z%}
+				<tr id="line">
+					<td id="yj">{{yj}}</td>
+					<td id="fz">{{fz}}</td>
+					<td id="v">{{v}}</td>		
+					<td id="s" style="color:black">{{s}}</td>
+					<td>{{stock}}</td>
+					{%if difference|int>0%}
+					<td style="color:mediumseagreen">{{difference}}</td>
+					{%else%}
+					<td style="color:brown">{{difference}}</td>
+					{%endif%}
+					<td id="state">{{state}}</td>
+					<td><button class="btn btn-info" id="btn_change" data-toggle="modal" data-target="#change_modal" sums="{{s}}" yj="{{yj}}" fz="{{fz}}" onclick='adjust_num(this)'>修改总数</button></td>
+					<td><a href="{{url_for('main.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
+				</tr>
+				{%endfor %}
+			{%else%}
+				{%for yj,fz,v,s,stock,difference in z%}
+				<tr id="line">
+					<td id="yj">{{yj}}</td>
+					<td id="fz">{{fz}}</td>
+					<td id="v">{{v}}</td>		
+					<td id="s" style="color:black">{{s}}</td>
+					<td>{{stock}}</td>
+					{%if difference|int>0%}
+					<td style="color:mediumseagreen">{{difference}}</td>
+					{%else%}
+					<td style="color:brown">{{difference}}</td>
+					{%endif%}
+					<td id="state"></td>
+					<td><button class="btn btn-info" id="btn_change" data-toggle="modal" data-target="#change_modal" sums="{{s}}" yj="{{yj}}" fz="{{fz}}" onclick='adjust_num(this)'>修改总数</button></td>
+					<td><a href="{{url_for('main.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
+				</tr>
+				{%endfor %}
+			{%endif%}
+		</tbody>
+	</table>
+
+	<div class="col-md-4">
+	</br>
+	<hr />
+		{{ wtf.quick_form(form) }}
+	</div>
+
+	<div class="modal fade" id="change_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							修改总数
+						</h4>
+						
+					</div>
+					<div class="modal-body">
+							<input type="hidden" id='sums'></p>
+							<input type="hidden" id='yjm'></p>
+							<input type="hidden" id='fzm'></p>
+						<p class="text-center">要修改的数量:<input type="text" id='change_num'></p>
+	
+					</div>
+					<div class="modal-footer">
+						<button id='off' type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button id="submit" type="button" class="btn btn-primary" path="{{path}}" name="{{name}}" onclick="change_submit(this)" >提交</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+
+		<div class="modal fade" id="produce_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								&times;
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								
+							</h4>
+							
+						</div>
+						<div class="modal-body">
+							<input type="hidden" id='z'></p>	
+							<p class="text-center">你确定要生产出库吗？</p>
+		
+						</div>
+						<div class="modal-footer">
+							<button id='off' type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button id="submit" type="button" class="btn btn-primary" path="{{path}}" name="{{name}}" onclick="produce_submit(this)" >确定</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal -->
+			</div>
+
+		<button class="btn btn-primary" data-toggle="modal" data-target="#produce_modal" style="margin:86px 0 50px 50px"  >一键出库</button>
+</div>
+
+
+
+
+{% endblock %}

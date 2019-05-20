@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import '_macro.html' as sp %}
+{% block title %}
+    物料属性
+{% endblock %}
+
+{% block page_content %}
+<script>
+    function add(obj){
+        num=$(obj).attr('num');
+        yj=$(obj).attr('yj');
+        fz=$(obj).attr('fz');
+        types=$(obj).attr('types');
+        $("#add_mid").val(num);
+        $("#yj").val(yj);
+        $("#fz").val(fz);
+        $("#types").val(types);
+        //alert(num);
+    }
+
+    function add_submit(obj){
+        var ids=$('#add_mid').val();
+        var attr=$('#attribute').val();
+        var value=$('#value').val();
+        var yj=$('#yj').val();
+        var fz=$('#fz').val();
+        var types=$('#types').val();
+        data_json={
+            'ids':ids,
+            'attr':attr,
+            'value':value,
+            'yj':yj,
+            'fz':fz,
+            'types':types
+        }
+        $.ajax({
+            url:"{{url_for('main.add_attr')}}",
+            data:jQuery.param(data_json,true),
+            success:function(data) {
+                if(data['msg']=='succeed')
+                {
+                    alert('添加成功!')
+                }
+
+                if(data['msg']=='failed')
+                {
+                    //alert('表格不存在,请先添加表!')
+                    
+                }
+                window.location =("{{ url_for('main.show_attr')}}"+'?ID='+ids+'&yj='+yj+'&fz='+fz+'&mtype='+types)
+            },
+            error:function(){
+                alert('服务器错误')
+            }
+        })
+        $('#add_modal').modal('hide')
+    }
+</script>
+
+<div class="container">
+	<h4>
+    </br>
+    </br>
+        
+    </h4>
+    </br>
+   
+    <ul class="list-inline">
+        <li>元件名:{{yj}}</li>
+        <li>封装:{{fz}}</li>
+        <li>类型:{{mtype}}</li>
+        <button class="btn btn-info" id="btn_add" data-toggle="modal" data-target="#add_modal" num={{ID}} yj={{yj}} fz={{fz}} types={{mtype}} onclick='add(this)'>添加属性</button>
+    </ul>
+
+<table class="table">
+    <thead>
+            {%if data_dict%}
+        <tr>
+            {%for name in data_dict%}
+            
+            <th>{{name}}</th>
+        
+            {%endfor%}
+        </tr>
+        {%endif%}
+    </thead>
+    
+    <tbody>
+        {%if value%}
+        <tr>
+            {%for val in value%}
+            <td>{{val}}</td>
+            {% endfor %}
+        </tr>
+        {%endif%}
+        
+    </tbody>
+</table>    
+
+
+
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    添加属性
+                </h4>
+                
+            </div>
+            <div class="modal-body">
+                    <p class="text-center">物料ID:<input type="text" id='add_mid' readonly="readonly"></p>
+                    <p class="text-center">元件名<input type="text" id ="yj" readonly="readonly"></p>
+                    <p class="text-center">封装<input type="text" id ="fz" readonly="readonly"></p>
+                    <p class="text-center">类型<input type="text" id ="types" readonly="readonly"></p>
+                <p class="text-center">属性:<input type="text" id='attribute'></p>
+                <p class="text-center">值:<input type="text" id='value'></p>
+            </div>
+            <div class="modal-footer">
+                <button id='off' type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="submit" type="button" class="btn btn-primary"  onclick="add_submit(this)" >提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+</div>                          
+{% endblock %}

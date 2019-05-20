@@ -1,0 +1,77 @@
+{% extends "base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block page_content %}
+<script>
+
+        function attr_submit(obj){
+
+            var attr=$('#attr').val()
+            data_json={
+                'attr':attr
+            }
+            $.ajax({
+                url:"{{url_for('main.add_material_attribute')}}",
+                data:jQuery.param(data_json,true),
+                success:function(data) {
+                   /* if(data['table']=='succeed'){
+                        alert('表格添加成功')
+                    }
+                    if(data['table']=='failed'){
+                        alert('表格添加失败')
+                    }
+                    if(data['record']=='succeed'){
+                        alert('表格记录添加成功')
+                    }
+                    if(data['record']=='failed'){
+                        alert('表格记录添加失败')
+                    }
+                    if(data['state']=='exists'){
+                        alert('该类型已经存在')
+                    }*/
+                    window.location.href ="{{ url_for('main.add_material')}}"
+                },
+                error:function(){
+                    alert('服务器错误')
+                }
+            })
+            $('#add_modal').modal('hide')
+        }
+</script>
+
+
+<div class="col-md-4">
+        <button class="btn btn-info" id="btn_add" data-toggle="modal" data-target="#add_modal">添加物料类型表</button>
+    <hr />
+    {{ wtf.quick_form(form) }}
+</div>
+
+
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加物料类型表
+                    </h4>
+                    
+                </div>
+                <div class="modal-body">
+                  
+                    <p class="text-center">物料类型表:<input type="text" id='attr'></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button id='off' type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="submit" type="button" class="btn btn-primary"  onclick="attr_submit(this)" >提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+{% endblock%}
+
