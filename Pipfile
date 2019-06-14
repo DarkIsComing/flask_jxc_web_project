@@ -7,17 +7,12 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-flask-restful = "*"
 flask-sqlalchemy = "*"
-flask-migrate = "*"
-flask-script = "*"
 pymysql = "*"
-flask-login = "*"
 flask-wtf = "*"
 flask-bootstrap = "*"
 pandas = "*"
-flask-whooshalchemy = "*"
-flask-whooshee = "*"
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.6"

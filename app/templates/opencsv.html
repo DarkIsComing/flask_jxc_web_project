@@ -37,7 +37,7 @@
 					{%endif%}
 					<td id="state">{{state}}</td>
 					<td><button class="btn btn-info" id="btn_change" data-toggle="modal" data-target="#change_modal" sums="{{s}}" yj="{{yj}}" fz="{{fz}}" onclick='adjust_num(this)'>修改总数</button></td>
-					<td><a href="{{url_for('main.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
+					<td><a href="{{url_for('api_1_0.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
 				</tr>
 				{%endfor %}
 			{%else%}
@@ -55,7 +55,7 @@
 					{%endif%}
 					<td id="state"></td>
 					<td><button class="btn btn-info" id="btn_change" data-toggle="modal" data-target="#change_modal" sums="{{s}}" yj="{{yj}}" fz="{{fz}}" onclick='adjust_num(this)'>修改总数</button></td>
-					<td><a href="{{url_for('main.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
+					<td><a href="{{url_for('api_1_0.adjust_inventory',path=path,name=name,yj=yj,fz=fz,s=s)}}">生产出库</a></td>					
 				</tr>
 				{%endfor %}
 			{%endif%}

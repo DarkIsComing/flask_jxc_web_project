@@ -12,7 +12,7 @@
                 'attr':attr
             }
             $.ajax({
-                url:"{{url_for('main.add_material_attribute')}}",
+                url:"{{url_for('api_1_0.add_material_attribute')}}",
                 data:jQuery.param(data_json,true),
                 success:function(data) {
                    /* if(data['table']=='succeed'){
@@ -30,7 +30,7 @@
                     if(data['state']=='exists'){
                         alert('该类型已经存在')
                     }*/
-                    window.location.href ="{{ url_for('main.add_material')}}"
+                    window.location.href ="{{ url_for('api_1_0.add_material')}}"
                 },
                 error:function(){
                     alert('服务器错误')

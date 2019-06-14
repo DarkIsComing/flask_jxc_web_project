@@ -4,7 +4,7 @@
 
 {% block page_content %}
 
-<form class="form-inline" method="POST" action="{{ url_for('main.upload') }}" enctype="multipart/form-data">
+<form class="form-inline" method="POST" action="{{ url_for('api_1_0.upload') }}" enctype="multipart/form-data">
     <div class="col-md-4">     
             {{ wtf.quick_form(form) }}
         </div>   
@@ -30,7 +30,7 @@
 			<td>
 				<a class="btn btn-danger" role="button" onclick="trans('listTable')">全部保存</a>
 			</td>
-			<td><a href="{{url_for('main.csv')}}" class="btn btn-danger" role="button" >查看列表</a></td>
+			<td><a href="{{url_for('api_1_0.csv')}}" class="btn btn-danger" role="button" >查看列表</a></td>
 		</tr>
 		<tr>
 			<th>选中</th>
@@ -130,7 +130,7 @@
 	$("#yj").autocomplete({
 		source: function(request, response){
 			$.ajax({
-				url:"{{url_for('main.get_yj')}}",
+				url:"{{url_for('api_1_0.get_yj')}}",
 				dataType: "json",
 				data:{
 					q_yj: request.term
@@ -146,7 +146,7 @@
 	$("#id").autocomplete({
 		source: function(request, response){
 			$.ajax({
-				url:"{{url_for('main.get_fz')}}",
+				url:"{{url_for('api_1_0.get_fz')}}",
 				dataType: "json",
 				data:{
 					q_fz: request.term
@@ -223,7 +223,7 @@
 			'id':d
 		};
 		$.ajax({
-			url:"{{url_for('main.check')}}",
+			url:"{{url_for('api_1_0.check')}}",
 			type:'POST',
 			data:jQuery.param(data_json,true),
 			success:function(msg) {
@@ -279,7 +279,7 @@
 	}
 	//modify功能
 	function modify(obj){
-		var oYj = document.getElementById('yj')
+		var oYj = document.getElementById('yj');
 		var oId = document.getElementById('id');
 		var oNum = document.getElementById('num');
 		var oTr = obj.parentNode.parentNode;
@@ -293,7 +293,7 @@
 	}
 	//update功能
 	function update(){
-		var oYj = document.getElementById('yj')
+		var oYj = document.getElementById('yj');
 		var oId = document.getElementById('id');
 		var oNum = document.getElementById('num');
 		var oMytable = document.getElementById('mytable');
@@ -314,15 +314,17 @@
 		$("#fz").val(oFz);
 		
 		$.get({
-			url:"{{url_for('main.add_in')}}",
+			url:"{{url_for('api_1_0.add_in')}}",
 			success:function(data){
-				var names=data['type'];
-				for(var i=0;i<names.length;i++)
-				{
+				var names=data['type'];			
+				if($("#types option").length<names.length){
+					for(var i=0;i<names.length;i++)
+					{
 					name=names[i];
 					$("#types").append("<option value=i>"+name+"</option>");
-				}
-				
+					
+					}
+				}  							
 			}
 		})
 	}
@@ -338,7 +340,7 @@
 			'types':types
 		}
 		$.ajax({
-			url:"{{url_for('main.submit')}}",
+			url:"{{url_for('api_1_0.submit')}}",
 			data:jQuery.param(data_json,true),
 			success:function(data) {
 				if(data['msg']=='exists')
@@ -407,7 +409,7 @@
 			'filename':filename
 		};
 		$.post({
-			url:"{{url_for('main.save')}}",
+			url:"{{url_for('api_1_0.save')}}",
 			data:jQuery.param(data_json,true),
 			success:function(msg) {
 				if(msg['data']=='success'){

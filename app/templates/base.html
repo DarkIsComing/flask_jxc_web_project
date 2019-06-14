@@ -18,19 +18,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">OcRobot</a>
+            <a class="navbar-brand" href="{{url_for('api_1_0.index')}}">OcRobot</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 
-                <li><a href="{{url_for('main.add_material')}}">添加物料</a></li>
-                <li><a href="{{url_for('main.material_list')}}">物料列表</a></li>                
-                <li><a href="{{url_for('main.buy_list')}}">进货列表</a></li>                
-                <li><a href="{{url_for('main.sale_list')}}">出货列表</a></li>
-                <li><a href="{{url_for('main.search_inventory_flow')}}">搜索库存流水</a></li>
-                <li><a href="{{url_for('main.inventory_flow')}}">库存流水</a></li>
-                <li><a href="{{url_for('main.upload')}}">上传文件</a></li>
-                <li><a href="{{url_for('main.csv')}}">生产表</a></li>
+                <li><a href="{{url_for('api_1_0.add_material')}}">添加物料</a></li>
+                <li><a href="{{url_for('api_1_0.material_list')}}">物料列表</a></li>                
+                <li><a href="{{url_for('api_1_0.buy_list')}}">进货列表</a></li>                
+                <li><a href="{{url_for('api_1_0.sale_list')}}">出货列表</a></li>
+                <li><a href="{{url_for('api_1_0.search_inventory_flow')}}">搜索库存流水</a></li>
+                <li><a href="{{url_for('api_1_0.inventory_flow')}}">库存流水</a></li>
+                <li><a href="{{url_for('api_1_0.upload')}}">上传文件</a></li>
+                <li><a href="{{url_for('api_1_0.csv')}}">生产表</a></li>
             </ul>
         </div>
     </div>

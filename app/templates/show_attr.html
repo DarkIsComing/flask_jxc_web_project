@@ -35,7 +35,7 @@
             'types':types
         }
         $.ajax({
-            url:"{{url_for('main.add_attr')}}",
+            url:"{{url_for('api_1_0.add_attr')}}",
             data:jQuery.param(data_json,true),
             success:function(data) {
                 if(data['msg']=='succeed')
@@ -48,7 +48,7 @@
                     //alert('表格不存在,请先添加表!')
                     
                 }
-                window.location =("{{ url_for('main.show_attr')}}"+'?ID='+ids+'&yj='+yj+'&fz='+fz+'&mtype='+types)
+                window.location =("{{ url_for('api_1_0.show_attr')}}"+'?ID='+ids+'&yj='+yj+'&fz='+fz+'&mtype='+types)
             },
             error:function(){
                 alert('服务器错误')

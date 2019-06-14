@@ -31,21 +31,21 @@
 			{%for item in page_data.items%}
 			<tr>
                 
-				<td>{{item.物料ID}}</td>
-                <td>{{item.物料名称}}</td>
-                <td>{{item.日期}}</td>
-				<td>{%if item.类型=='in'%}
+				<td>{{item.ID}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.date}}</td>
+				<td>{%if item.types=='in'%}
 						<p>进货单</p>
-					{%elif item.类型=='out'%}
+					{%elif item.types=='out'%}
 						<p>出货单</p>
-					{%elif item.类型=='adjust'%}
+					{%elif item.types=='adjust'%}
 						<p>盘整单</p>
-					{%elif item.类型=='product'%}
+					{%elif item.types=='product'%}
 						<p>生产单</p>
 					{%endif%}
 				</td>
-				<td>{{item.发生数量}}</td>
-				<td>{{item.库存数量}}</td>
+				<td>{{item.occurred_amount}}</td>
+				<td>{{item.stock}}</td>
 				
 			</tr>
 			{%endfor%}
@@ -55,7 +55,7 @@
 		
 	</table>
 
-	{{sp.split_page(page_data,'main.inventory_flow')}}
+	{{sp.split_page(page_data,'api_1_0.inventory_flow')}}
 
 </div>
 

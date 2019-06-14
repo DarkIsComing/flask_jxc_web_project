@@ -17,7 +17,7 @@
 			<tr>
                 <th>物料ID</th>
 				<th>物料名称</th>
-				<th>物料型号</th>
+				<th>封装名称</th>
                 <th>物料类型</th>
 				<th>物料库存</th>
 				<th>备注</th>
@@ -28,27 +28,27 @@
 				{%for material in page_data.items%}
 			<tr>
                 <td>{{material.ID}}</td>
-                <td>{{material.物料名称}}</td>
-                <td>{{material.物料型号}}</td>
-                <td>{{material.物料类型}}</td>
-                {%if material.物料库存%}
-                <td>{{material.物料库存}}</td>
+                <td>{{material.name}}</td>
+                <td>{{material.package}}</td>
+                <td>{{material.types}}</td>
+                {%if material.stock%}
+                <td>{{material.stock}}</td>
                 {%else%}
                 <td>0</td>
                 {%endif%}
-                {%if material.备注%}
-                <td style='word-wrap:break-word;word-break:break-all;'>{{material.备注}}</td>
+                {%if material.remark%}
+                <td style='word-wrap:break-word;word-break:break-all;'>{{material.remark}}</td>
                 {%else%}
                 <td></td>
                 {%endif%}
                 <td> 
-                        <button class="btn btn-info" id="btn_remark" data-toggle="modal" data-target="#remark_modal", num="{{material.ID}}" mark="{{material.备注}}" onclick='add_remark(this)'>修改备注</button>    
+                        <button class="btn btn-info" id="btn_remark" data-toggle="modal" data-target="#remark_modal", num="{{material.ID}}" mark="{{material.remark}}" onclick='add_remark(this)'>修改备注</button>    
                     </td>
-                <td><button class="btn btn-info" id="btn_buy" data-toggle="modal" data-target="#buy_modal",href="{{url_for('main.buy')}}" num="{{material.ID}}" onclick='buy(this)'>进货</button></td>
-                <td><button class="btn btn-info" id="btn_sale" data-toggle="modal" data-target="#sale_modal",data-href="{{url_for('main.buy',ID=material.ID)}}" num="{{material.ID}}" onclick='sale(this)'>出货</button></td>
-                <td><button class="btn btn-info" id="btn_add" data-toggle="modal" data-target="#add_modal",href="{{url_for('main.buy')}}" num="{{material.ID}}" yj="{{material.物料名称}}" fz="{{material.物料型号}}" types="{{material.物料类型}}" onclick='add(this)'>添加属性</button></td>
-                <td><button class="btn btn-info"><a href="{{url_for('main.show_attr',ID=material.ID,yj=material.物料名称,fz=material.物料型号,mtype=material.物料类型)}}">展示属性</a></button></td>
-                <td><button class="btn btn-info"><a href="{{url_for('main.delete_material',ID=material.ID,words=words,page=page)}}">删除物料</a></button></td>
+                <td><button class="btn btn-info" id="btn_buy" data-toggle="modal" data-target="#buy_modal",href="{{url_for('api_1_0.buy')}}" num="{{material.ID}}" onclick='buy(this)'>进货</button></td>
+                <td><button class="btn btn-info" id="btn_sale" data-toggle="modal" data-target="#sale_modal",data-href="{{url_for('api_1_0.buy',ID=material.ID)}}" num="{{material.ID}}" onclick='sale(this)'>出货</button></td>
+                <td><button class="btn btn-info" id="btn_add" data-toggle="modal" data-target="#add_modal",href="{{url_for('api_1_0.buy')}}" num="{{material.ID}}" yj="{{material.name}}" fz="{{material.package}}" types="{{material.types}}" onclick='add(this)'>添加属性</button></td>
+                <td><button class="btn btn-info"><a href="{{url_for('api_1_0.show_attr',ID=material.ID,yj=material.name,fz=material.package,mtype=material.types)}}">展示属性</a></button></td>
+                <td><button class="btn btn-info"><a href="{{url_for('api_1_0.delete_material',ID=material.ID,words=words,page=page)}}">删除物料</a></button></td>
                 <td><button class="btn btn-info" id="btn_record" data-toggle="modal" data-target="#record_modal", num="{{material.ID}}" onclick='adjust_record(this)'>库存调整</button></td>
             </tr>
             {% endfor %}
@@ -186,7 +186,7 @@
             </div>
 
     <div class="pagination">
-            {{sp.split_page(page_data,'main.search_material_list',words)}}
+            {{sp.split_page(page_data,'api_1_0.search_material_list',words)}}
             </div>
 </div>
 

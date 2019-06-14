@@ -4,7 +4,7 @@
 {% block page_content %}
 
 
-<form method="POST" action="{{ url_for('main.upload') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ url_for('api_1_0.upload') }}" enctype="multipart/form-data">
     <div class="col-md-4">
    
             <hr />
@@ -36,7 +36,7 @@
                 <td id="i">{{i}}</td>
                 <td id="v">{{v}}</td>
                 <td><button id="btn" onclick="delete_key(this)">删除</button></td>
-                <td><a href="{{url_for('main.change',z=z)}}">修改</a></td>
+                <td><a href="{{url_for('api_1_0.change',z=z)}}">修改</a></td>
             </tr>
             {%endfor %}
             

@@ -21,11 +21,11 @@
 		<tbody>
                 {%for item in page_data.items%}
 			<tr>
-                <td>{{item.物料名称}}</td>
-                <td>{{item.进货数量}}</td>
-                <td>{{item.进货价格}}</td>
-                <td>{{item.进货日期}}</td>
-                <td>{{item.物料ID}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.number}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.date}}</td>
+                <td>{{item.ID}}</td>
                 
             </tr>
             {% endfor %}
@@ -33,20 +33,9 @@
 		</tbody>
     </table>
     <div class="pagination">
-            {{sp.split_page(page_data,'main.buy_list')}}
+            {{sp.split_page(page_data,'api_1_0.buy_list')}}
     </div>
 </div>
 
-{#
-
-<div class="container">
-    进货id:{{buy_order.进货id}}
-    进货物料名称:{{buy_order.物料名称}}
-    进货数量:{{buy_order.进货数量}}
-    进货价格:{{buy_order.进货价格}}
-    进货日期:{{buy_order.进货日期}}
-    物料ID:{{buy_order.物料ID}}
-</div>
-#}
 {% endblock %}
 
